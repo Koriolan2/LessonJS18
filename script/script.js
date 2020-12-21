@@ -139,4 +139,41 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     };
     tabs();
+
+    // Слайдер
+    const slider = () => {
+        const slide = document.querySelectorAll('.portfolio-item'),
+              btn = document.querySelectorAll('.portfolio-btn'),
+              dot = document.querySelectorAll('.dot'),
+              slider = document.querySelector('.portfolio-content');
+
+        let currentSlide = 0;
+
+        const prevSlide = (item, index, strClass) => {
+            item[index].classList.remove(strClass);
+        };
+
+        const nextSlide = (item, index, strClass) => {
+            item[index].classList.add(strClass);
+        };
+
+        const autoPlaySlide = () => {
+            prevSlide
+            currentSlide++;
+            if (currentSlide >= slide.length) {
+                currentSlide = 0;
+            }
+            slide[currentSlide].classList.add('portfolio-item-active');
+        };
+
+        const startSlide = () => {
+            setInterval(autoPlaySlide, 2000);
+        };
+
+        const stopSlide = () => {};
+
+        startSlide();
+    };
+    slider();
+    
 });
