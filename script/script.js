@@ -78,7 +78,6 @@ window.addEventListener('DOMContentLoaded', () => {
     toggleMenu();
 
     // PopUp Window
-
     const togglePopUp = () => {
         const popup = document.querySelector('.popup'),
             popupBtn = document.querySelectorAll('.popup-btn');
@@ -330,33 +329,43 @@ window.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             form.appendChild(statusMessage);
 
-            const request = new XMLHttpRequest();
+            const formData = new FormData (form);
+            let body = {};
 
-            request.addEventListener('readystatechange', () => {
-                statusMessage.textContent = loadMessage; 
-    
-                if(request.readyState !== 4) {
-                    return;
-                }
-                if(request.status === 200) {
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+            statusMessage.textContent = loadMessage;
+                      
+            postData(body)
+                .then(() => {
                     statusMessage.textContent = successMessage;
-                } else {
+                })
+                .catch ((error) => {
                     statusMessage.textContent = errorMessage;
-                }
+                    console.error(error);
+                });
+        });
+
+        const postData = (body) => {
+            return new Promise ((resolve, reject) => {
+                const request = new XMLHttpRequest();
+                request.addEventListener('readystatechange', () => {
+                    if (request.readyState !== 4) {
+                        return;
+                    }
+                    if (request.status === 200) {
+                        resolve();
+                    } else {
+                        reject(request.statusText);
+                    }
                 });
 
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-            const formData = new FormData(form);
-            let body = {};
-            for (let val of formData.entries()) {
-                body[val[0]] = val[1];
-            }        
-
-            request.send(JSON.stringify(body));
-
-        
-        });
+                request.open('GET', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+                request.send(JSON.stringify(body));
+            });
+        };
     };
     sendForm();
 });
