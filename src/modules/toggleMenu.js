@@ -9,8 +9,10 @@ const toggleMenu = () => {
         let target = event.target;
         
         if (target.closest('.menu') || target.closest('.close-btn')) {
+                      
             handlerMenu();
         }
+        
     });
 
     const handlerMenu = () => {

@@ -11,7 +11,7 @@ import calc from './modules/calc';
 import sendForm from './modules/sendForm';
 
 // Таймер
-countTimer('31 december 2020');
+countTimer('15 january 2021');
 // Меню
 toggleMenu();
 // PopUp Window

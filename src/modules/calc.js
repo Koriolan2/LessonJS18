@@ -13,6 +13,12 @@ const calc = (price = 100) => {
 
         const typeValue = calcType.options[calcType.selectedIndex].value,
               squareValue = +calcSquare.value;
+              
+              if (typeValue === '') {
+                 calcSquare.value='';
+                 calcDay.value = '';
+                 calcCount.value = '';
+              }
 
               if(calcCount.value > 1) {
                     countValue += (calcCount.value - 1) / 10;
@@ -31,15 +37,19 @@ const calc = (price = 100) => {
             total = 0;
         }
 
-        totalValue.textContent = total;
+        totalValue.textContent = total.toFixed(2);
+
+ 
     }
 
     calcBlock.addEventListener('change', (event) => {
         const target = event.target;
-
+      
         if (target === calcType || target === calcSquare || target === calcDay || target === calcCount) {
             countSum();
-        }
+        } 
+
+        
     });
 
 };
