@@ -16,6 +16,14 @@ const validation = () =>{
         });
     });
 
+    // Валидация номера телефона
+    let fieldsPhone = document.querySelectorAll('.form-phone');
+    fieldsPhone.forEach((elem) => {
+        elem.addEventListener('input', () => {
+            console.log(elem.value);
+            elem.value = elem.value.replace(/[a-zA-Zа-яА-Я]*$/g,'');
+        });
+    });
     
 };
 export default validation;

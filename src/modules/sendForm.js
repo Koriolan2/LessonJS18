@@ -3,21 +3,21 @@ const sendForm = () => {
           loadMessage = 'Загрузка...',
           successMessage = 'Спасибо! Мы скоро с Вами свяжемся!',
           form = document.getElementById('form1'),
-          modalForm = document.getElementById('form2'),
-          footerForm = document.getElementById('form3');
+          modalForm = document.getElementById('form3'),
+          footerForm = document.getElementById('form2');
         
     
     const statusMessage = document.createElement('div');
    
-    statusMessage.style.cssText = 'font-size:2rem;';
-
+    statusMessage.style.cssText = 'font-size:2rem; color: #ffffff';
+    
     const clearField = (form) => {
         form.querySelectorAll('input').forEach((elem) => {
             elem.value='';
         });
         setTimeout(()=>{
             statusMessage.textContent ='';
-        }, 5000);
+        }, 3000);
     };
 
     form.addEventListener('submit', (event) => {
@@ -75,6 +75,9 @@ const sendForm = () => {
                     statusMessage.textContent = successMessage;
     
                     clearField(modalForm);
+                    setInterval(() => {
+                        modalForm.closest('.popup').style.display='none';
+                    }, 2000);
     
                 })
                 .catch ((error) => {
@@ -88,7 +91,7 @@ const sendForm = () => {
 
     footerForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        form.appendChild(statusMessage);
+        footerForm.appendChild(statusMessage);
 
             const formData = new FormData (footerForm);
             let body = {};
